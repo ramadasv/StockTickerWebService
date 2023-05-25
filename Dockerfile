@@ -1,5 +1,5 @@
 # pull the image from docker hub and update it
-FROM python:3.10.11-slim
+FROM --platform=linux/amd64 python:3.10.11-slim as build
 RUN apt-get update -y
 
 # Create a directory for logs
@@ -12,7 +12,7 @@ ENV PATH="/app/StockTicker/venv/bin:$PATH"
 # Sets the working directory in the container 
 WORKDIR /app/StockTicker
 
-# Copies everything to the working directory and Install dependencies
+# Copies files to the working directory and Install dependencies
 COPY StockTickerRestAPI.py requirements.txt .env /app/StockTicker/
 RUN pip install --no-cache-dir -r requirements.txt
 
